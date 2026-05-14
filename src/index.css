@@ -1,0 +1,282 @@
+:root {
+  --bg-color: #0f172a;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --card-border: rgba(255, 255, 255, 0.1);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.1), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(147, 51, 234, 0.1), transparent 25%);
+  background-attachment: fixed;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.header-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.header-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Grid */
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+/* 
+  ===========================================
+  CONTENEDOR 3D DE LA TARJETA 
+  ===========================================
+*/
+.artist-card-container {
+  perspective: 1500px; /* Crea el espacio 3D */
+  width: 100%;
+  height: 420px; /* Altura fija para evitar saltos al girar */
+  animation: fadeInUp 0.8s ease-out backwards;
+  transition: transform 0.4s ease;
+}
+
+/* Animaciones escalonadas para que aparezcan una tras otra */
+.artist-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.artist-grid > *:nth-child(2) { animation-delay: 0.2s; }
+.artist-grid > *:nth-child(3) { animation-delay: 0.3s; }
+.artist-grid > *:nth-child(4) { animation-delay: 0.4s; }
+.artist-grid > *:nth-child(5) { animation-delay: 0.5s; }
+.artist-grid > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Animación de flotar al pasar el ratón */
+.artist-card-container:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* Efecto de brillo al pasar el ratón, se aplica a ambas caras */
+.artist-card-container:hover .artist-card-front,
+.artist-card-container:hover .artist-card-back {
+  border-color: var(--accent-color);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-color, rgba(255,255,255,0.2));
+}
+
+/* Interior de la tarjeta, responsable de girar */
+.artist-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d; /* Permite a los hijos existir en el espacio 3D */
+}
+
+/* Clase dinámica que se activa con React al hacer clic */
+.artist-card-container.flipped .artist-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Estilos compartidos por ambas caras (frente y reverso) */
+.artist-card-front, 
+.artist-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; /* Oculta la parte trasera de las caras */
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* ================== CARA FRONTAL ================== */
+.artist-card-front {
+  transform: rotateY(0deg);
+}
+
+.card-image-wrapper {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.artist-card-container:hover .card-image {
+  transform: scale(1.1);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+}
+
+.card-profession {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.card-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ================== CARA TRASERA ================== */
+.artist-card-back {
+  transform: rotateY(180deg); /* Empieza volteada hacia atrás */
+  background: rgba(15, 23, 42, 0.95); /* Fondo un poco más sólido para leer texto */
+  padding: 2rem;
+}
+
+.card-back-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.card-name-back {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.card-profession-back {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.card-divider {
+  width: 60px;
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+.card-description-back {
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 1.05rem;
+  flex: 1;
+  overflow-y: auto; /* Permite scroll si la descripción es muy larga */
+  padding-right: 0.5rem;
+}
+
+/* Scrollbar para la cara trasera */
+.card-description-back::-webkit-scrollbar {
+  width: 6px;
+}
+.card-description-back::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+}
+.card-description-back::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+.back-button {
+  margin-top: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ================== BOTONES (Común) ================== */
+.card-button {
+  width: 100%;
+  padding: 0.875rem;
+  border: none;
+  border-radius: 0.75rem;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.card-button:hover {
+  filter: brightness(1.15);
+  transform: scale(1.02);
+}
+
+.card-button:active {
+  transform: scale(0.98);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
