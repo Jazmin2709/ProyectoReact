@@ -1,16 +1,23 @@
-# React + Vite
+# 🎵 Galería de Artistas - Proyecto Final
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ¿Qué es este proyecto?
+La **Galería de Artistas** es una aplicación web interactiva que sirve como un catálogo musical visual. Su objetivo es que los usuarios puedan explorar a diferentes cantantes y artistas de una manera mucho más atractiva y entretenida que una simple lista de nombres.
 
-Currently, two official plugins are available:
+## Características Principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* **Tarjetas Interactivas 3D:** Cada artista se muestra en una tarjeta. Al hacer clic en el botón para ver más información, la tarjeta realiza una animación de giro en 3D para mostrar su biografía en la parte trasera.
+* **Música Automática:** Lo más destacado del proyecto es que, al girar la tarjeta para leer sobre el artista, ¡comienza a sonar automáticamente un fragmento de su canción más famosa!
+* **Reproducción Inteligente:** La aplicación está diseñada para que la música no sea molesta. El volumen es suave (15%) y el sistema se asegura de que **solo suene una canción a la vez**. Si estás escuchando a un artista y decides abrir la tarjeta de otro, la primera canción se detendrá sola para darle paso a la nueva.
+* **Diseño Personalizado:** Cada tarjeta toma un color característico dependiendo del artista (por ejemplo, rojo para Mon Laferte o azul para José José), haciendo que la galería se vea colorida y moderna.
 
-## React Compiler
+## ¿Cómo funciona?
+La aplicación está construida con **React**. Utiliza un conjunto de datos (que simula información traída de internet) que contiene el nombre, la foto, la biografía y un enlace oficial de iTunes con la vista previa de la canción de cada artista.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Integrantes del grupo:
 
-## Expanding the ESLint configuration
+* Andres Camilo Rodriguez / andres.rmerp1473@gmail.com
+* Cielo Jazmín Vargas Peña / cielojvargas@gmail.com
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Importante
+
+* **Solicitamos el certificado en físico.**
